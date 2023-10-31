@@ -98,5 +98,5 @@ int main(int argc, char** argv, char** envp) {
 		<< "relative path " << p3.relative_path() << '\n';
 
 	std::cout << "Sizeof: " << sizeof(root) << std::endl;
-	
+
 }

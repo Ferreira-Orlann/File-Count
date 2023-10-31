@@ -11,8 +11,10 @@ endif()
 
 project ("File Count")
 
+include_directories("include")
+
 # Ajoutez une source à l'exécutable de ce projet.
-add_executable (CMakeTarget "main.cpp" "file.cpp" "directory.cpp" "test.cpp")
+add_executable (CMakeTarget "source/main.cpp" "source/file.cpp" "source/directory.cpp" "source/test.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET CMakeTarget PROPERTY CXX_STANDARD 20)
