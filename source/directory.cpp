@@ -56,7 +56,6 @@ void Directory::init(const fs::path& path, Directory* parent_p) {
 		try {
 			if (dir_entry.is_directory()) {
 				directories[dirP].init(dir_entry.path(), this);
-				this->setLineCount(this->getLineCount() + directories[dirP].getLineCount());
 				dirP++;
 			}
 		}
@@ -64,7 +63,6 @@ void Directory::init(const fs::path& path, Directory* parent_p) {
 		if (dir_entry.is_regular_file()) {
 			fs::path path = dir_entry.path();
 			files[fileP].init(path, this);
-			this->setLineCount(this->getLineCount() + files[fileP].getLineCount());
 			fileP++;
 		}
 	}

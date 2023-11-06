@@ -11,8 +11,6 @@
 #include <cstddef>
 #include <unordered_map>
 
-namespace fs = std::filesystem;
-
 #include "file.hpp"
 #include "directory.hpp"
 

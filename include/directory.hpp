@@ -1,4 +1,9 @@
 #pragma once
+
+#include <filesystem>
+
+namespace fs = std::filesystem;
+
 class Directory : public File {
 private:
 	int fileCount;
@@ -7,7 +12,7 @@ private:
 	File* files;
 public:
 	Directory(std::filesystem::path&);
-	Directory() {};	
+	Directory() {};
 	void init(const std::filesystem::path& path, Directory* parent_p);
 	Directory* getDirectories();
 	File* getFiles();

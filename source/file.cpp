@@ -13,24 +13,9 @@ void File::init(const fs::path& path, Directory* parent_p) {
 			this->filename = path.root_name();
 		}
 	}
-	this->lineCount = 0;
 	if (!fs::is_regular_file(path)) {
 		return;
 	}
-	/*
-	std::ifstream myfile;
-	myfile.open(path.string());
-	std::string sa;
-	while (std::getline(myfile, sa))
-	{
-		this->lineCount++;
-	}
-	myfile.close();
-	*/
-}
-
-void File::setLineCount(int count) {
-	this->lineCount = count;
 }
 
 fs::path& File::getFilename() {
@@ -47,10 +32,6 @@ File::File(fs::path& path) {
 
 File::File(fs::path& path, Directory* parent_p) {
 	init(path, parent_p);
-}
-
-int File::getLineCount() {
-	return this->lineCount;
 }
 
 Directory* File::getParent() {
