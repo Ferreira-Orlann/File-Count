@@ -1,4 +1,4 @@
-#include "main.hpp"
+#include "directory.hpp"
 
 template <typename First, typename... T>
 // Function that checks given variable
@@ -7,6 +7,8 @@ bool is_in(First&& first, T&&... t)
 {
 	return ((first == t) || ...);
 }
+
+static int dirnb = 0;
 
 void Directory::init(const fs::path& path, Directory* parent_p) {
 	File::init(path, parent_p);

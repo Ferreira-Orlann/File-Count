@@ -1,6 +1,7 @@
-#include "main.hpp"
+#include "file.hpp"
+#include "directory.hpp"
 
-std::unordered_map<fs::path, fs::path*> filenames;
+static int filenb = 0;
 
 void File::init(const fs::path& path, Directory* parent_p) {
 	filenb++;
@@ -35,6 +36,20 @@ File::File(fs::path& path, Directory* parent_p) {
 
 Directory* File::getParent() {
 	return this->parent_p;
+}
+
+bool File::IsChildOf(Directory* directory)
+{
+	Directory* parent = this->getParent();
+	while (parent != nullptr) 
+	{
+		if (parent == directory) 
+		{
+			return true;
+		}
+		parent = parent->getParent();
+	}
+	return false;
 }
 
 fs::path File::getPath() {

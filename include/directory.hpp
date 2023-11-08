@@ -1,9 +1,10 @@
 #pragma once
 
 #include <filesystem>
+#include <vector>
+#include "file.hpp"
 
 namespace fs = std::filesystem;
-static int dirnb = 0;
 
 class Directory : public File {
 private:

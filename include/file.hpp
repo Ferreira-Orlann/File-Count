@@ -1,9 +1,9 @@
 #pragma once
 
 #include <filesystem>
+#include <vector>
 
 namespace fs = std::filesystem;
-static int filenb = 0;
 
 class Directory;
 
@@ -19,4 +19,5 @@ public:
 	void init(const std::filesystem::path&, Directory* parent_p);
 	std::filesystem::path getPath();
 	Directory* getParent();
+	bool IsChildOf(Directory* directory);
 };
