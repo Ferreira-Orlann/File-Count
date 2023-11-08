@@ -1,9 +1,9 @@
 #pragma once
 
 #include <filesystem>
+#include <vector>
 
-namespace fs = std::filesystem;
-static int dirnb = 0;
+#include "file.hpp"
 
 class Directory : public File {
 private:
@@ -16,4 +16,7 @@ public:
 	std::vector<Directory>* GetDirectories();
 	std::vector<File>* GetFiles();
 	int Size();
+
+
+	static int dirnb;
 };

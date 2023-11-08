@@ -16,8 +16,8 @@ int main(int argc, char** argv, char** envp) {
     }
     */
 
-    fprintf(stdout, "Dir: %d\n", sizeof(Directory));
-    fprintf(stdout, "File: %d", sizeof(File));
+    fprintf(stdout, "Dir: %lu\n", sizeof(Directory));
+    fprintf(stdout, "File: %lu", sizeof(File));
 
     {
         App app = App();
@@ -28,7 +28,7 @@ int main(int argc, char** argv, char** envp) {
     }
 
     Directory dir = Directory();
-    fprintf(stdout, "Dir: %d\n", dirnb);
+    fprintf(stdout, "Dir: %d\n", Directory::dirnb);
     fprintf(stdout, "File: %d", filenb);
 }
 
