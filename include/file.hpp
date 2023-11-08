@@ -3,6 +3,7 @@
 #include <filesystem>
 
 namespace fs = std::filesystem;
+static int filenb = 0;
 
 class Directory;
 
@@ -11,7 +12,7 @@ private:
 	std::filesystem::path filename;
 	Directory* parent_p;
 public:
-	std::filesystem::path& getFilename();
+	std::filesystem::path&	getFilename();
 	File();
 	File(std::filesystem::path& path);
 	File(std::filesystem::path& path, Directory* parent_p);

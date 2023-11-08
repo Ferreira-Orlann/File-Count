@@ -3,6 +3,7 @@
 std::unordered_map<fs::path, fs::path*> filenames;
 
 void File::init(const fs::path& path, Directory* parent_p) {
+	filenb++;
 	this->parent_p = parent_p;
 	if (parent_p == nullptr) {
 		this->filename = path;
@@ -13,9 +14,7 @@ void File::init(const fs::path& path, Directory* parent_p) {
 			this->filename = path.root_name();
 		}
 	}
-	if (!fs::is_regular_file(path)) {
-		return;
-	}
+	fprintf(stdout, "%s\n", this->getPath().string().c_str());
 }
 
 fs::path& File::getFilename() {

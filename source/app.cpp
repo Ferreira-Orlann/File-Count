@@ -54,8 +54,6 @@ App::App()
 
 App::~App() 
 {
-    fprintf(stdout, "~App\n");
-    // Cleanup
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
@@ -128,7 +126,16 @@ void App::Render()
         ImGui::SetNextWindowDockID(ImGui::GetID("MyDockSpace"), ImGuiCond_FirstUseEver);
         if (ImGui::Begin("Search", &searchWin))   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
         {
-
+            if (ImGui::Button("Unselect Dir"))
+            {
+                Directory* ptr = nullptr;
+                this->SetSelectedDirectory(*ptr);
+            }
+            if (ImGui::Button("Unselect Fire"))
+            {
+                File* ptr = nullptr;
+                this->SetSelectedFile(*ptr);
+            }
             ImGui::Text("Hello from another window!");
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0 / (double)(ImGui::GetIO().Framerate), (double)(ImGui::GetIO().Framerate));
 
@@ -145,67 +152,67 @@ void App::Render()
 
             if (this->GetSelectedDirectory() != nullptr)
             {
-                Directory* selectedDirectory = this->GetSelectedDirectory();
-                Directory* subDirectories = selectedDirectory->getDirectories();
-                File* subFiles = subFiles = selectedDirectory->getFiles();
+                Directory* selectedDirectory =   this->GetSelectedDirectory();
+                std::vector<Directory>* subDirectories = selectedDirectory->GetDirectories();
+                std::vector<File>* subFiles = selectedDirectory->GetFiles();
+                
                 if (ImGui::BeginTable("split1", 2,
                     ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
                 {
                     static int selected = -1;
-                    int dirCount = selectedDirectory->getDirectoryCount();
-                    for (int i = 0; i < dirCount; i++)
+                    int i = 0;
+                    for (auto it = subDirectories->begin(); it != subDirectories->end(); ++it)
                     {
                         ImGui::TableNextRow();
                         ImGui::TableNextColumn();
-                        Directory directory = subDirectories[i];
-                        if (ImGui::Selectable(directory.getFilename().string().c_str(), selected == i, ImGuiSelectableFlags_SpanAllColumns |
+                        if (ImGui::Selectable(it->getFilename().string().c_str(), selected == i, ImGuiSelectableFlags_SpanAllColumns |
                             ImGuiSelectableFlags_AllowDoubleClick)) {
                             if (ImGui::IsMouseDoubleClicked(0))
                             {
-                                selected = -1;
-                                this->SetSelectedDirectory(subDirectories[i]);
-                            }
+                                selected = -1;      
+                                this->SetSelectedDirectory(*it);
+                            }       
                             else {
                                 selected = i;
-                                this->SetSelectedFile(*((File*)&directory));
+                                this->SetSelectedFile(*((File*)&it));
                                 infoWin = true;
                             }
                         }
                         ImGui::TableNextColumn();
                         ImGui::Text("Directory");
-
+                        i++;
                     }
-                    for (int i = 0; i < selectedDirectory->getFileCount(); i++)
+
+                    for (auto it = subFiles->begin(); it != subFiles->end(); ++it)
                     {
                         ImGui::TableNextRow();
                         ImGui::TableNextColumn();
-                        File file = subFiles[i];
-                        if (ImGui::Selectable(file.getFilename().string().c_str(), selected + dirCount == i, ImGuiSelectableFlags_SpanAllColumns)) {
-                            selected = i + dirCount;
-                            this->SetSelectedFile(file);
+                        if (ImGui::Selectable(it->getFilename().string().c_str(), selected  == i, ImGuiSelectableFlags_SpanAllColumns)) {
+                            selected = i;
+                            this->SetSelectedFile(*it);
                             infoWin = true;
                         }
                         ImGui::TableNextColumn();
                         ImGui::Text("File");
+                        i++;
 
                     }
-                    fprintf(stdout, "%d\n", dirCount);
                     ImGui::EndTable();
                 }
             }   
         }
         ImGui::End();
+    }
 
+    if (ImGui::Begin("Informations", &infoWin))
         if (this->GetSelectedFile() != nullptr && infoWin)
         {
             File* file = this->GetSelectedFile();
-            if (ImGui::Begin("Informations", &infoWin))
             {
                 ImGui::Text("Test");
             }
-            ImGui::End();
         }
-    }
+    ImGui::End();
 
     if (shoulDemo) 
     {
@@ -226,7 +233,7 @@ File* App::GetSelectedFile()
 }
 
 void App::SetSelectedFile(File& file)
-{
+{   
     this->selectedFile = &file;
 }
 

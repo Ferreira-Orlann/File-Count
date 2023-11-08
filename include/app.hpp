@@ -7,22 +7,20 @@
 #include "file.hpp"
 #include "directory.hpp"
 
-
 class App {
 private:
 	GLFWwindow* window;
 	Directory* selectedDirectory = nullptr;
 	File* selectedFile = nullptr;
-	void RenderInitialization();
-	void RenderFinalization();
-
 public:
 	App();
 	~App();
-	void Render();
 	bool ShouldRun();
 	File* GetSelectedFile();
 	void SetSelectedFile(File& file);
 	Directory* GetSelectedDirectory();
 	void SetSelectedDirectory(Directory& diretory);
+	void RenderInitialization();
+	void Render();
+	void RenderFinalization();
 };
