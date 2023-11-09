@@ -130,13 +130,21 @@ void App::Render()
         {
             if (ImGui::Button("Unselect Dir"))
             {
-                Directory* ptr = nullptr;
-                this->SetSelectedDirectory(*ptr);
+                Directory* selDir = this->GetSelectedDirectory();
+                if (selDir != nullptr)
+                {
+                    Directory* selDir = this->GetSelectedDirectory();
+                    this->SetSelectedDirectory(*((Directory*) nullptr));
+                    File* selFile = this->GetSelectedFile();
+                    if (selFile != nullptr && selFile->IsChildOf(selDir))
+                    {
+                        this->SetSelectedFile(*((File*) nullptr));
+                    }
+                }
             }
             if (ImGui::Button("Unselect Fire"))
             {
-                File* ptr = nullptr;
-                this->SetSelectedFile(*ptr);
+                this->SetSelectedFile(*((File*) nullptr));
             }
             ImGui::Text("Hello from another window!");
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0 / (double)(ImGui::GetIO().Framerate), (double)(ImGui::GetIO().Framerate));
