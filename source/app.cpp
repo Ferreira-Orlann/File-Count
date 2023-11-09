@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdexcept>
 
+#include <vector>
+
 #include <GLFW/glfw3.h>
 
 #include "app.hpp"
@@ -18,7 +20,7 @@ App::App()
 {
 	glfwSetErrorCallback(glfw_error_callback);
 	if (!glfwInit())
-		throw std::exception("GLFW Error");
+		throw "GLFW Error";
 
     const char* glsl_version = "#version 150";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -31,7 +33,7 @@ App::App()
     const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     this->window = glfwCreateWindow(mode->width/2, mode->height/2, "Dear ImGui GLFW+OpenGL3 example", nullptr, nullptr);
     if (this->window == nullptr)
-        throw std::exception("WindowCreation Error");
+        throw "WindowCreation Error";
     glfwMakeContextCurrent(this->window);
     glfwSwapInterval(1); // Enable vsync
 

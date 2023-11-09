@@ -3,8 +3,7 @@
 #include <filesystem>
 #include <vector>
 #include "file.hpp"
-
-namespace fs = std::filesystem;
+=======
 
 class Directory : public File {
 private:
@@ -17,4 +16,7 @@ public:
 	std::vector<Directory>* GetDirectories();
 	std::vector<File>* GetFiles();
 	int Size();
+
+
+	static int dirnb;
 };

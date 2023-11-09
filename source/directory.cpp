@@ -1,5 +1,10 @@
 #include "directory.hpp"
 
+
+int Directory::dirnb = 0;
+
+namespace fs = std::filesystem;
+
 template <typename First, typename... T>
 // Function that checks given variable
 // first in the list t[]
